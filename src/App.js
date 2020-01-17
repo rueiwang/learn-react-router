@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Home, Chapter, ReactChapter, ReduxChapter} from './component/pages'
+import { Home, Chapter } from './component/pages'
 import { Navbar, BackToHome } from './component/links'
 import { Route } from 'react-router-dom'
 
@@ -7,10 +7,7 @@ import { Route } from 'react-router-dom'
 class App extends Component {
     constructor(props) {
         super(props)
-        this.state={
-            headline: null,
-            chapters: []
-        }
+        this.state=null
     }
 
     componentDidMount() {
@@ -26,24 +23,28 @@ class App extends Component {
     }
 
     render() {
-        return (
-            <div className="container">
-                <Navbar content={this.state}/>
-                {
-                    this.state.chapters.map((chapter) => {
-                        const prefixKey = '/' + chapter.key;
-                        return (
-                            <Route path={prefixKey} component={Chapter} key={chapter.key}/>
-                        )
-                    })
-                }
-
-                <Route path="/" exact render={(routeProps) => {
-                    return <Home content={this.state} />
-                }} />
-                <BackToHome />
-            </div>
-        )
+        if (this.state === null) {
+            return <h1>Loading</h1>
+        } else {
+            return (
+                <div className="container">
+                    <Navbar content={this.state}/>
+                    {
+                        this.state.chapters.map((chapter, i) => {
+                            const prefixKey = '/' + chapter.key;
+                            return (
+                                <Route path={prefixKey} component={Chapter} key={i}/>
+                            )
+                        })
+                    }
+    
+                    <Route path="/" exact render={(routeProps) => {
+                        return <Home content={this.state} />
+                    }} />
+                    <BackToHome />
+                </div>
+            )
+        }
     }
 }
 

@@ -16,8 +16,8 @@ function renderContent(object) {
                 <h1>{object.title}</h1>
                 <ul>
                     {
-                        object.sections.map((section) => {
-                            return <li key={section}>{section}</li>
+                        object.sections.map((section, i) => {
+                            return <li key={i}>{section}</li>
                         })
                     }
                 </ul>
